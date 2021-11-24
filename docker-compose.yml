@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+    devcolumn:
+        container_name: devcolumn
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        command: run_project
+        volumes:
+            - ./conf:/web_root/project/conf/
+            - ./docker/entrypoint.sh:/web_root/project/entrypoint.sh
+        ports:
+            - 8000:8000
+        environment:
+            - PGUSERNAME=postgres
+            - POSTGRES_PASSWORD=postgres
+            - PGDBNAME=cms
+            - PGHOST=db
+            - PGPORT=5432
+            - DJANGO_DEBUG=True
+            - DJANGO_MODE=DEV
+            - TZ=PST
+        depends_on:
+            - db
+
+    db:
+        container_name: db_devcolumn
+        image: postgres:13.0-alpine
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+            - postgres-log:/var/log/postgresql
+            # - ./docker/init/01-db_setup.sh:/docker-entrypoint-initdb.d/01-db-setup.sh # to set up the DB template
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=cms
+            - TZ=PST
+
+volumes:
+    postgres-data: null
+    postgres-log: null
