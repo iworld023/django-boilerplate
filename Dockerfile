@@ -35,11 +35,9 @@ RUN mkdir -p /web_root
 RUN addgroup -S docker && adduser -S docker -G docker
 
 # create the appropriate directories
-# ENV HOME=/home/app
 ENV WEB_ROOT=/web_root
 # Root project folder
-# ENV APP_HOME=/home/app/web
-ENV PROJECT_ROOT=$WEB_ROOT/project
+ENV PROJECT_ROOT=$WEB_ROOT/conf
 RUN mkdir $PROJECT_ROOT
 WORKDIR $PROJECT_ROOT
 
