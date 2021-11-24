@@ -9,7 +9,7 @@ services:
         command: run_project
         volumes:
             - ./conf:/web_root/conf/
-            - ./docker/entrypoint.sh:/web_root/project/entrypoint.sh
+            - ./docker/entrypoint.sh:/web_root/conf/entrypoint.sh
         ports:
             - 8000:8000
         environment:

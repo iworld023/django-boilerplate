@@ -57,7 +57,7 @@ COPY . $PROJECT_ROOT
 # chown all the files to the app user
 RUN chown -R docker:docker $PROJECT_ROOT
 
-RUN chmod +x  $PROJECT_ROOT/entrypoint.sh
+RUN chmod +x $PROJECT_ROOT/entrypoint.sh
 
 # change to the app user
 USER docker
@@ -65,7 +65,6 @@ USER docker
 # run entrypoint
 ENTRYPOINT ["./entrypoint.sh"]
 CMD ["run_project"]
-
 
 # Expose port 8000
 EXPOSE 8000
