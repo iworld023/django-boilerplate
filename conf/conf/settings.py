@@ -9,13 +9,19 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
+import inspect
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ROOT_DIR = os.path.dirname(os.path.abspath(
+    inspect.getfile(inspect.currentframe())))
 
 
+APP_NAME = 'app'
+APP_ROOT = os.path.dirname(os.path.abspath(
+    inspect.getfile(inspect.currentframe())))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'conf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,7 +128,40 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+# Absolute filesystem path to the directory that will hold user-uploaded files.
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ROOT_DIR, "static")
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(ROOT_DIR, "staticfiles"),
+)
+
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Additional locations of static files for production environment
+# STATICFILES_DIRS = (
+# Put strings here, like "/home/html/static" or "C:/www/django/static".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
+# os.path.join(BASE_DIR, "static"),
+# )
+
+# List of finder classes that know how to find static files in
+# various locations.
+# STATICFILES_FINDERS = (
+# "django.contrib.staticfiles.finders.FileSystemFinder",
+# "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+# "compressor.finders.CompressorFinder",
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+# )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

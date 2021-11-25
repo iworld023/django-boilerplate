@@ -8,7 +8,9 @@ services:
             dockerfile: ./Dockerfile
         command: run_project
         volumes:
-            - ./conf:/web_root/conf/
+            - .:/web_root/
+            # - static_volume:/web_root/conf/static
+            # - media_volumes:/web_root/conf/media
             - ./docker/entrypoint.sh:/web_root/conf/entrypoint.sh
         ports:
             - 8000:8000
@@ -40,5 +42,7 @@ services:
             - TZ=PST
 
 volumes:
-    postgres-data: null
-    postgres-log: null
+    postgres-data: 
+    postgres-log: 
+    static_volume: 
+    media_volumes: 
