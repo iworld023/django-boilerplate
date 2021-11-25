@@ -8,9 +8,7 @@ services:
             dockerfile: ./Dockerfile
         command: run_project
         volumes:
-            - .:/web_root/
-            # - static_volume:/web_root/conf/static
-            # - media_volumes:/web_root/conf/media
+            - ./conf:/web_root/conf/
             - ./docker/entrypoint.sh:/web_root/conf/entrypoint.sh
         ports:
             - 8000:8000
